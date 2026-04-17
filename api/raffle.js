@@ -1,34 +1,20 @@
-import { getComments } from './instagram'
+export default function handler(req, res) {
+  const comments = [
+    { username: 'alice' },
+    { username: 'bob' },
+    { username: 'cindy' },
+    { username: 'david' },
+    { username: 'alice' }
+  ]
 
-function pickWinner(list) {
-  return list[Math.floor(Math.random() * list.length)]
-}
+  // 去重
+  const uniqueUsers = [...new Set(comments.map(c => c.username))]
 
-export default async function handler(req, res) {
-  try {
-    const comments = await getComments()
+  const winner =
+    uniqueUsers[Math.floor(Math.random() * uniqueUsers.length)]
 
-    // 去重（同一人只算一次）
-    const unique = {}
-    comments.forEach(c => {
-      unique[c.username] = c
-    })
-
-    const users = Object.keys(unique)
-
-    if (users.length === 0) {
-      return res.status(400).json({ error: 'no participants' })
-    }
-
-    const winner = pickWinner(users)
-
-    res.status(200).json({
-      total: users.length,
-      winner
-    })
-  } catch (err) {
-    res.status(500).json({
-      error: err.message
-    })
-  }
+  res.status(200).json({
+    total: uniqueUsers.length,
+    winner
+  })
 }
