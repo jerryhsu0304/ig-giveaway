@@ -1,11 +1,10 @@
-ig-giveaway-pro/
+ig-giveaway-clean/
 ├── api/
 │   ├── comments.js
-│   ├── raffle.js
-│   ├── instagram.js
-├── src/
-│   ├── App.jsx
-│   ├── api.js
-│   ├── utils.js
+│   └── raffle.js
+├── index.html
 ├── package.json
-├── vercel.json
+├── vite.config.js
+└── src/
+    ├── main.jsx
+    ├── App.jsx
